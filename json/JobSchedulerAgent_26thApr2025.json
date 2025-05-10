@@ -1,0 +1,37 @@
+{
+  "provider": "autogen_agentchat.agents.AssistantAgent",
+  "component_type": "agent",
+  "version": 1,
+  "component_version": 1,
+  "description": "An agent that helps to fetch jobs from the internet and stores it on Notion DB. ",
+  "label": "JobScheduler Agent",
+  "config": {
+    "name": "job_scheduler_agent",
+    "model_client": {
+      "provider": "autogen_ext.models.openai.OpenAIChatCompletionClient",
+      "component_type": "model",
+      "version": 1,
+      "component_version": 1,
+      "description": "Chat completion client for OpenAI hosted models.",
+      "label": "OpenAIChatCompletionClient",
+      "config": {
+        "model": "gpt-4o-mini"
+      }
+    },
+    "tools": [],
+    "model_context": {
+      "provider": "autogen_core.model_context.UnboundedChatCompletionContext",
+      "component_type": "chat_completion_context",
+      "version": 1,
+      "component_version": 1,
+      "description": "An unbounded chat completion context that keeps a view of the all the messages.",
+      "label": "UnboundedChatCompletionContext",
+      "config": {}
+    },
+    "description": "An agent that provides assistance with ability to use tools.",
+    "system_message": "You are a helpful and reliable Job Search Agent.\n\n1. Load a list of active job search queries from the Notion database \"Job Search Queries\".\n2. For each query which is Active:\n   - Use GoogleSearchTool to run the query\n   - Parse and extract jobs (Title, Description, Company, Location, Posted Date, Tags, Apply Link, Source)\n3. For each job listing:\n   - Generate a unique string for uid field and append to the job\n   - if an error errors, skip it and treat it as new.\n   - If it’s new, call the NotionMemoryTool with function `store_job(job)` to save the job in the \"Job Listings\" Notion database.\n   - If you get an error on Date field put in today's date.\n   - If you get an error on other field please replace it with a space.\n\n4. At the end of the run:\n   - Return a formatted JSON array of all **newly added** jobs.\n   - Each result must include:\n     - `title`\n     - `company`\n     - `location`\n     - `remote`\n     - `posted_date`\n     - `apply_link`\n     - `description`\n     - `source`\n     - `tags` (array)\n     - `uid`\n\nIf no new jobs were added, return: `[]`\n\nBe methodical. log any errors and try to resolve it. Your job is to build a clean, deduplicated, structured list based on the queries stored in Notion.\n\nSolve tasks carefully. When done, say TERMINATE.",
+    "model_client_stream": true,
+    "reflect_on_tool_use": true,
+    "tool_call_summary_format": "{result}"
+  }
+}

@@ -1,0 +1,13 @@
+As a highly expert AI, meticulously compare the provided job description (JD) and the resume. Extract and categorize the key job requirements from the JD, thoroughly analyze the corresponding skills, qualifications, and experiences listed in the resume, and accurately determine the alignment between the two documents. 
+
+Return your detailed analysis in a structured JSON format with the following essential components:
+{
+ "title": "<Job Title>",
+ "match_score": "<Fit percentage, e.g.,75%> based on weighted evaluation of skills and qualifications>",
+ "applicability_summary": "<Detailed summary of how well the candidate's profile fits the job requirements, highlighting key strengths and areas for improvement>",
+ "strengths": [<Comprehensive list of matching strengths, skills, and qualifications>],
+ "gaps": [<Detailed list of missing skills, qualifications, and experiences required by the job>],
+ "recommendation": "<'Proceed to next stage' if the match_score >70% and candidate demonstrates potential, else 'Skip to next candidate'>"
+}
+
+Ensure the analysis is characterized by exceptional clarity, precision, accuracy, and professionalism, adhering to the highest standards of AI-driven job analysis. Provide insightful and actionable recommendations that facilitate informed decision-making in the hiring process.

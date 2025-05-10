@@ -1,0 +1,10 @@
+{
+  "model": "gpt-4",
+  "agent_type": "job_analysis",
+  "io_files": {
+    "prompt_file": "prompts/jd_analysis_prompt.txt",
+    "job_description_file": "data/job_description.txt",
+    "resume_file": "data/resume.txt",
+    "output_file": "match_result.json"
+  }
+}
